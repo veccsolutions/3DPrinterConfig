@@ -1,0 +1,22 @@
+FROM debian:10.2 AS build
+
+ARG MARLIN_BRANCH=2.0.x
+
+RUN apt update && \
+    apt install -y git
+
+# cache busting with run.ps1 only when the latest release changes
+COPY temp/marlinlatest /marlinlatest
+RUN git clone https://github.com/MarlinFirmware/Marlin.git /marlin
+WORKDIR /marlin
+RUN git checkout $MARLIN_BRANCH
+
+COPY Configuration.h /mine/Configuration.h
+COPY Configuration_adv.h /mine/Configuration_adv.h
+
+
+FROM scratch
+COPY --from=build /marlin/Marlin/Configuration.h /marlin/Original.Configuration.h
+COPY --from=build /marlin/Marlin/Configuration_adv.h /marlin/Original.Configuration_adv.h
+COPY --from=build /mine/Configuration.h /marlin/Mine.Configuration.h
+COPY --from=build /mine/Configuration_adv.h /marlin/Mine.Configuration_adv.h

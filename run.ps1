@@ -1,4 +1,6 @@
 $MARLIN_BRANCH="2.0.x"
+$pullconfigs=$true
+
 function Compute-Sha([string] $file)
 {
     if (Test-Path $file)
@@ -23,11 +25,22 @@ function Download-File([string] $file, [string] $url)
 Download-File -file "./temp/marlinlatest" -url "https://api.github.com/repos/MarlinFirmware/Marlin/branches/${MARLIN_BRANCH}"
 Download-File -file "./temp/arduino-cli.tar.gz" -url "https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz"
 
-docker image build --build-arg MARLIN_BRANCH=${MARLIN_BRANCH} -t marlin .
-$containerId = & docker container create -it marlin /bin/sh
-mkdir build -ErrorAction SilentlyContinue | Out-Null
+if ($pullconfigs -eq $true)
+{
+    docker image build --build-arg MARLIN_BRANCH=${MARLIN_BRANCH} -t marlinconfigs -f ./Dockerfile-Configs .
+    $containerId = & docker container create -it marlinconfigs /bin/sh
+    mkdir configs -ErrorAction SilentlyContinue | Out-Null
 
-docker cp ${containerId}:/marlin/. build
+    docker cp ${containerId}:/marlin/. configs
 
-docker rm $containerId
-write-host $containerId
+    docker rm $containerId
+}
+else {
+    docker image build --build-arg MARLIN_BRANCH=${MARLIN_BRANCH} -t marlin .
+    $containerId = & docker container create -it marlin /bin/sh
+    mkdir build -ErrorAction SilentlyContinue | Out-Null
+
+    docker cp ${containerId}:/marlin/. build
+
+    docker rm $containerId
+}
