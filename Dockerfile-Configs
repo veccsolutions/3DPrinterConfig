@@ -14,7 +14,6 @@ RUN git checkout $MARLIN_BRANCH
 COPY Configuration.h /mine/Configuration.h
 COPY Configuration_adv.h /mine/Configuration_adv.h
 
-
 FROM scratch
 COPY --from=build /marlin/Marlin/Configuration.h /marlin/Original.Configuration.h
 COPY --from=build /marlin/Marlin/Configuration_adv.h /marlin/Original.Configuration_adv.h

@@ -32,7 +32,6 @@ function Download-File([string] $file, [string] $url)
 }
 
 Download-File -file "./temp/marlinlatest" -url "https://api.github.com/repos/MarlinFirmware/Marlin/branches/${MARLIN_BRANCH}"
-Download-File -file "./temp/arduino-cli.tar.gz" -url "https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz"
 
 if ($commit -ne "")
 {
@@ -50,6 +49,8 @@ if ($configsOnly -eq $true)
     docker rm $containerId
 }
 else {
+    Download-File -file "./temp/arduino-cli.tar.gz" -url "https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz"
+
     docker image build --build-arg MARLIN_BRANCH=${MARLIN_BRANCH} -t marlin .
     $containerId = & docker container create -it marlin /bin/sh
     mkdir build -ErrorAction SilentlyContinue | Out-Null
