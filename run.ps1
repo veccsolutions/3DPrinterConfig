@@ -1,5 +1,14 @@
-$MARLIN_BRANCH="2.0.x"
-$pullconfigs=$true
+param(
+    [string]
+    $branch = "2.0.x",
+
+    [string]
+    $commit = "",
+
+    [Switch]
+    $configsOnly
+)
+$MARLIN_BRANCH = $branch
 
 function Compute-Sha([string] $file)
 {
@@ -25,7 +34,12 @@ function Download-File([string] $file, [string] $url)
 Download-File -file "./temp/marlinlatest" -url "https://api.github.com/repos/MarlinFirmware/Marlin/branches/${MARLIN_BRANCH}"
 Download-File -file "./temp/arduino-cli.tar.gz" -url "https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz"
 
-if ($pullconfigs -eq $true)
+if ($commit -ne "")
+{
+    $MARLIN_BRANCH = $commit
+}
+
+if ($configsOnly -eq $true)
 {
     docker image build --build-arg MARLIN_BRANCH=${MARLIN_BRANCH} -t marlinconfigs -f ./Dockerfile-Configs .
     $containerId = & docker container create -it marlinconfigs /bin/sh
