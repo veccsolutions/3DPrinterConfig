@@ -1883,7 +1883,7 @@
     #define X_CURRENT       800        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     16    // 0..256
-    #define X_RSENSE          0.12
+    #define X_RSENSE          0.11
     #define X_CHAIN_POS      -1    // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
   #endif
 
@@ -1891,7 +1891,7 @@
     #define X2_CURRENT      800
     #define X2_CURRENT_HOME X2_CURRENT
     #define X2_MICROSTEPS    16
-    #define X2_RSENSE         0.12
+    #define X2_RSENSE         0.11
     #define X2_CHAIN_POS     -1
   #endif
 
@@ -1899,7 +1899,7 @@
     #define Y_CURRENT       800
     #define Y_CURRENT_HOME  Y_CURRENT
     #define Y_MICROSTEPS     16
-    #define Y_RSENSE          0.12
+    #define Y_RSENSE          0.11
     #define Y_CHAIN_POS      -1
   #endif
 
@@ -1907,7 +1907,7 @@
     #define Y2_CURRENT      800
     #define Y2_CURRENT_HOME Y2_CURRENT
     #define Y2_MICROSTEPS    16
-    #define Y2_RSENSE         0.12
+    #define Y2_RSENSE         0.11
     #define Y2_CHAIN_POS     -1
   #endif
 
@@ -1915,7 +1915,7 @@
     #define Z_CURRENT       800
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     16
-    #define Z_RSENSE          0.12
+    #define Z_RSENSE          0.11
     #define Z_CHAIN_POS      -1
   #endif
 
@@ -1931,49 +1931,49 @@
     #define Z3_CURRENT      800
     #define Z3_CURRENT_HOME Z3_CURRENT
     #define Z3_MICROSTEPS    16
-    #define Z3_RSENSE         0.12
+    #define Z3_RSENSE         0.11
     #define Z3_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E0)
     #define E0_CURRENT      800
     #define E0_MICROSTEPS    16
-    #define E0_RSENSE         0.12
+    #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E1)
     #define E1_CURRENT      800
     #define E1_MICROSTEPS    16
-    #define E1_RSENSE         0.12
+    #define E1_RSENSE         0.11
     #define E1_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E2)
     #define E2_CURRENT      800
     #define E2_MICROSTEPS    16
-    #define E2_RSENSE         0.12
+    #define E2_RSENSE         0.11
     #define E2_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E3)
     #define E3_CURRENT      800
     #define E3_MICROSTEPS    16
-    #define E3_RSENSE         0.12
+    #define E3_RSENSE         0.11
     #define E3_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E4)
     #define E4_CURRENT      800
     #define E4_MICROSTEPS    16
-    #define E4_RSENSE         0.12
+    #define E4_RSENSE         0.11
     #define E4_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E5)
     #define E5_CURRENT      800
     #define E5_MICROSTEPS    16
-    #define E5_RSENSE         0.12
+    #define E5_RSENSE         0.11
     #define E5_CHAIN_POS     -1
   #endif
 
@@ -2159,7 +2159,7 @@
    * Enable M122 debugging command for TMC stepper drivers.
    * M122 S0/1 will enable continous reporting.
    */
-  //#define TMC_DEBUG
+  #define TMC_DEBUG
 
   /**
    * You can set your own advanced settings by filling in predefined functions.
